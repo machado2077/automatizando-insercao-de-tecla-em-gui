@@ -1,52 +1,21 @@
-from threading import Lock, Event, Thread
-from time import sleep
-from pynput import keyboard
-
-START_KEY = 'a'
-STOP_KEY = 'q'
-TAP_DELAY = 0.5
-
-stop_key_pressed_event = Event()
-controller = keyboard.Controller()
-lock = Lock()
-start_key_pressed_event = Event()
-
-def start_key_pressed(key):
-    try:
-        if str(key.char).lower() == START_KEY:
-            start_key_pressed_event.set()
-    except AttributeError:
-        pass
-
-
-def stop_key_pressed(key):
-    lock.acquire()
-    try:        
-        if str(key.char).lower() == STOP_KEY:
-            stop_key_pressed_event.set()
-    except AttributeError:
-        pass
-    finally:
-        lock.release()
-    
-
-def start_key_press():
-    while True:
-        if stop_key_pressed_event.is_set():
-            break
-        controller.tap(START_KEY)
-        sleep(TAP_DELAY)
+from src import KeyboardEventResponse, MainProcessController, PynputKeyboardListenerAdapter
 
 
 
-start_listener = keyboard.Listener(on_press=start_key_pressed)
-start_listener.start()
-start_key_pressed_event.wait()
+keyboard_event_response = KeyboardEventResponse()
+"""
+key_listener_adapter = PynputKeyboardListenerAdapter()
 
-stop_listener = keyboard.Listener(on_press=stop_key_pressed)
-stop_listener.start()
+proc_controller = MainProcessController(key_listener_adapter, keyboard_event_response)
+"""
+from src.main_process_controller import MainProcessController2
+from src.keyboard_listener_adapter import PynputKeyboardListenerAdapter2
 
-start_key_press_thread = Thread(target=start_key_press, daemon=True)
-start_key_press_thread.start()
+proc_controller = MainProcessController2(keyboard_event_response)
+key_listener_adapter = PynputKeyboardListenerAdapter2()
+key_listener_adapter.subscribe(proc_controller)
+key_listener_adapter.start()
 
-stop_key_pressed_event.wait()
+
+if __name__ == "__main__":
+    proc_controller.start_main_process()
