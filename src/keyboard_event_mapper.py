@@ -1,5 +1,3 @@
-#EVENTO -(TRANSFORMA)-> ESTADO
-
 from collections import namedtuple
 
 

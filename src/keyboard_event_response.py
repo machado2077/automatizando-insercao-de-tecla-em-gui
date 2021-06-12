@@ -1,7 +1,6 @@
-from .keyboard_event_mapper import keyboard_event_mapper as key_event
-
-from pynput.keyboard import Controller
 from time import sleep
+from pynput.keyboard import Controller
+from .keyboard_event_mapper import keyboard_event_mapper as key_event
 
 keyboard_controller = Controller()
 #TODO: fazer uma classe abstrata que vai passar o init e o respond_to_keyboard_event
