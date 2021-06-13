@@ -3,8 +3,8 @@ from .abstract_classes.abstract_keyboard_event_response import AbstractKeyboardE
 
 
 class MainProcessController(ObserverInterface):
-    def __init__(self, responsible: AbstractKeyboardEventResponse) -> None:
-        self.responsible = responsible
+    def __init__(self, response: AbstractKeyboardEventResponse) -> None:
+        self.response = response
         self.__keyboard_event = None
     
     def update(self, keyboard_event):
@@ -12,7 +12,7 @@ class MainProcessController(ObserverInterface):
 
     def main_process(self):
         while True:
-            process = self.responsible.respond_to_keyboard_event(self.__keyboard_event)
+            process = self.response.respond_to_keyboard_event(self.__keyboard_event)
             if process == False:
                 return
 

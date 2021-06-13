@@ -6,7 +6,7 @@ from .abstract_classes.abstract_keyboard_event_response import AbstractKeyboardE
 keyboard_controller = Controller()
 
 
-class KeyboardEventResponse(AbstractKeyboardEventResponse):
+class PynputKeyboardEventResponse(AbstractKeyboardEventResponse):
     def __init__(self) -> None:
         super().__init__()
 
