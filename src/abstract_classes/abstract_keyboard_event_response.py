@@ -5,9 +5,9 @@ from . import key_event
 class AbstractKeyboardEventResponse(ABC):
     def __init__(self) -> None:
         self.responses = {
-            key_event.initialize: self.start_key_press,
-            key_event.pause: self.pause_keyboard_press,
-            key_event.finish: self.finish_keyboard_press
+            key_event.initialize: self._start_key_press,
+            key_event.pause: self._pause_keyboard_press,
+            key_event.finish: self._finish_keyboard_press
         }
 
     def respond_to_keyboard_event(self, keyboard_event: str) -> bool:
@@ -17,11 +17,11 @@ class AbstractKeyboardEventResponse(ABC):
         return True
 
     @abstractmethod
-    def start_key_press(self) -> bool:        
+    def _start_key_press(self) -> bool:        
         return True
 
-    def pause_keyboard_press(self) -> bool:
+    def _pause_keyboard_press(self) -> bool:
         return True
     
-    def finish_keyboard_press(self) -> bool:
+    def _finish_keyboard_press(self) -> bool:
         return False

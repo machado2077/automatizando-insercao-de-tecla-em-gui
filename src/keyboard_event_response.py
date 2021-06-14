@@ -10,7 +10,7 @@ class PynputKeyboardEventResponse(AbstractKeyboardEventResponse):
     def __init__(self) -> None:
         super().__init__()
 
-    def start_key_press(self) -> bool:
+    def _start_key_press(self) -> bool:
         keyboard_controller.tap(key_event.initialize)
         sleep(0.8) #O sleep precisa estar depois do .tap(key)
         return True

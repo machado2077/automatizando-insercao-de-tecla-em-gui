@@ -1,3 +1,3 @@
 from .main_process_controller import MainProcessController
 from .keyboard_event_response import PynputKeyboardEventResponse
-from .keyboard_listener_adapter import PynputKeyboardListenerAdapter
+from .keyboard_listener import PynputKeyboardListener
