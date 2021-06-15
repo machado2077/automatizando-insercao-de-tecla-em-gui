@@ -1,4 +1,4 @@
-from src import MainProcessController, PynputKeyboardListener, PynputKeyboardEventResponse
+from src2 import MainProcessController, PynputKeyboardListener, PynputKeyboardEventResponse
 
 
 key_listener_adapter = PynputKeyboardListener()
