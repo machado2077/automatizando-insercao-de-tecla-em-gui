@@ -1,7 +1,9 @@
-from .interfaces import IKeyboardEventInputPort, IKeyboardEventOutputPort
+from .interfaces import IKeyboardEventOutputPort
+from time import sleep
 
-
-class MainProcessController(IKeyboardEventInputPort):
+class MainProcessController:
+    """Classe responsável por controlar o loop principal
+    """
     def __init__(self, responsable: IKeyboardEventOutputPort) -> None:
         self.__responsable = responsable
         self.__keyboard_event = None
