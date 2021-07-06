@@ -11,6 +11,7 @@ class KeyboardEventResponse(IKeyboardEventOutputPort):
             'q': self.__stop_key_press,
             'f': self.__finish_key_press
         }
+        self.__current_response = None
 
     @property
     def response_adapter(self):
@@ -31,8 +32,8 @@ class KeyboardEventResponse(IKeyboardEventOutputPort):
         return False
 
     def respond_to_keyboard_event(self, keyboard_event: str) -> bool:
-        #TODO: TRATAR CASO O COMANDO NÃO EXISTA, DE MODO A CONTINUAR O PROCESSO ANTERIOR CASO UM TECLA NÃO EXISTENTE FOR ACIONADA
         response = self.responses.get(keyboard_event)
-        if response:            
+        if response:
+            self.__current_response = response
             return response()
-        return True
+        return self.__current_response()
