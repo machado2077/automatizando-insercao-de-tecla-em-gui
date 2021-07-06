@@ -1,10 +1,11 @@
-from ..core.application.interfaces import IKeyboardEventOutputPort
+from ..interfaces import IKeyboardEventOutputPort
 
 class KeyboardEventResponse(IKeyboardEventOutputPort):
-    """Classe responsável por abstrair as respostas referentes aos comandos passados ao MainProcessController pelo usuário da aplicação.
+    """Classe responsável por abstrair as respostas às solicitações referentes aos comandos passados ao MainProcessController, pelo usuário da aplicação. Por fim, retornar ao MainProcessController o feedback dessa solicitação.
     """
     def __init__(self) -> None:
         self.__response_adapter = None
+        #TODO: IMPLEMENTAR O MAPEADOR DESSES COMANDOS
         self.responses = {
             'a': self.__start_key_press,
             'q': self.__stop_key_press,

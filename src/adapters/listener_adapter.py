@@ -1,6 +1,6 @@
 from threading import Event
 from pynput.keyboard import Listener
-from ..core.application.interfaces import IKeyboardEventInputPort
+from ..core.interfaces import IKeyboardEventInputPort
 
 class PynputEventListenerAdapter:
     def __init__(self, adaptee: IKeyboardEventInputPort) -> None:

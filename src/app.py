@@ -1,5 +1,5 @@
-from .core.application import MainProcessController
-from .ports import KeyboardEventListener, KeyboardEventResponse
+from .core.main_process_controller import MainProcessController
+from .core.ports import KeyboardEventListener, KeyboardEventResponse
 
 class App:
     """Classe responsável por estabelecer as portas de acesso ao MainProcessController, retornando um objeto que incorpora a aplicação desejada. Essas portas serão acessadas por adaptadores que irão implementar os casos de uso para o funcionamento da aplicação, utilizando de recursos externos.

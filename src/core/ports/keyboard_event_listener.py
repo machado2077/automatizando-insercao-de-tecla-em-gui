@@ -1,5 +1,5 @@
-from ..core.application.interfaces import IKeyboardEventInputPort
-from ..core.application import MainProcessController
+from ..interfaces import IKeyboardEventInputPort
+from ..main_process_controller import MainProcessController
 
 class KeyboardEventListener(IKeyboardEventInputPort):
     """Classe responsável por abstrair o recebimento dos comandos fornecidos pelo usuário da aplicação, tratar o comando e passá-lo para o MainProcessController.
