@@ -1,19 +1,54 @@
 import os
 from ..interfaces import IKeyboardEventOutputPort
+from ..keyboard_event_mapper import key_mapper, Response
 
 class KeyboardEventResponse(IKeyboardEventOutputPort):
-    """Classe responsável por abstrair as respostas às solicitações referentes aos comandos passados ao MainProcessController, pelo usuário da aplicação. Por fim, retornar ao MainProcessController o feedback dessa solicitação.
-    """
+    """Classe responsável por receber os comandos do usuário, tratar e implementar as respostas da aplicação e certificar o retorno adequado ao controlador principal do processo."""
     def __init__(self) -> None:
+        #TODO: IMPLEMENTAR O MAPEADOR DESSES COMANDOS - MAPEAR COM OBJETOS
         self.__response_adapter = None
-        #TODO: IMPLEMENTAR O MAPEADOR DESSES COMANDOS
-        self.responses = {
-            'a': self.__start_key_press,
-            'q': self.__stop_key_press,
-            'f': self.__finish_key_press
+        RESPONSES_MAPPED_ARGS = {
+            "init_method":self.__start_key_press,
+            "pause_method":self.__stop_key_press,
+            "finish_method":self.__finish_key_press
         }
-        self.__current_response = None
-        self.__current_command = {"input": None, "response_method": lambda: True, "new": True}
+        self.__responses = self._response_mapper(**RESPONSES_MAPPED_ARGS)
+        self.__current_command_name = None
+
+    def respond_to_keyboard_event(self, keyboard_event: str) -> bool:
+        response = bool(self.__get_response(keyboard_event))
+        if response:
+            return self.__handle_response(keyboard_event)
+        return True
+
+    def __get_response(self, command: str) -> Response:
+        return self.__responses.get(command)
+
+    def __handle_response(self, command: str) -> bool:
+        response = self.__get_response(command)
+        if command == self.__current_command_name:
+            return response.method()
+        self.__current_command_name = command
+        self.__handle_user_response_message()
+        return response.method()
+
+    def __handle_user_response_message(self) -> None:
+        self.__clear_shell()
+        response = self.__get_response(self.__current_command_name)
+        response.message()
+
+    def __clear_shell(self) -> None:
+        os.system("cls" if os.name == "nt" else "clear")
+    
+    def _response_mapper(self, init_method, pause_method, finish_method) -> dict:
+        print_msg = lambda msg: lambda: print(f"{msg}\n")
+        mapper = {
+            key_mapper.initialize: Response(init_method, print_msg("INICIADO") ),
+            key_mapper.pause: Response(pause_method, print_msg("PAUSADO")),
+            key_mapper.finish: Response(finish_method, print_msg("FINALIZADO"))
+        }
+        print('APERTE PARA COMEÇAR')
+        return mapper
 
     @property
     def response_adapter(self):
@@ -23,6 +58,7 @@ class KeyboardEventResponse(IKeyboardEventOutputPort):
     def response_adapter(self, adapter):
         self.__response_adapter = adapter
 
+    #IMPLEMENTAÇÕES DE RESPOSTA DA APLICAÇÃO E RETORNO AO CONTROLADOR PRINCIPAL
     def __start_key_press(self) -> bool:
         self.__response_adapter.start_key_press()
         return True
@@ -32,51 +68,3 @@ class KeyboardEventResponse(IKeyboardEventOutputPort):
     
     def __finish_key_press(self) -> bool:
         return False
-    
-    def __clear_shell(self):
-        os.system("cls" if os.name == "nt" else "clear")
-
-    def __response_method(self):
-        return self.__current_command.get("response_method")()
-
-    def __handle_response(self):
-        if not self.__current_command.get("new"):
-            return self.__response_method()
-        command = self.__current_command.get("input")
-        if command == "a":
-            print("INICIADO\n")
-        elif command == "q":
-            print("PAUSADO\n")
-        elif command == "f":
-            print("FINALIZADO\n")
-        self.__current_command.update(new=False)
-        return self.__response_method()
-
-    def respond_to_keyboard_event(self, keyboard_event: str) -> bool:
-        response = self.responses.get(keyboard_event)
-        if response:
-            if not keyboard_event == self.__current_command.get("input"):
-                self.__current_command.update(
-                    input=keyboard_event,
-                    response_method=response,
-                    new=True
-                )
-                self.__clear_shell()
-            return self.__handle_response()
-        return self.__response_method()
-
-"""
-PROBLEMAS:
-- as respostas não estão mapeadas (tudo hardcoded)
-- comparações de IF para printar a mensagem do comando
-
-SOLUÇÕES:
-- como relacionar o mapeamento dos comandos de respostas com o comando atual:
-    - colocar o mapeamento de respostas dentro do comando atual
-- o que seria o mapeamento de comandos?:
-    - seria um mapeamento que teria acesso as configurações dos comandos do usuário
-    - teria uma relação, para cada comando:
-        tecla - comando - mensagem
-    - como iniciar?
-
-"""
