@@ -19,6 +19,9 @@ class KeyboardEventResponse(IKeyboardEventOutputPort):
         response = bool(self.__get_response(keyboard_event))
         if response:
             return self.__handle_response(keyboard_event)
+        current_response = self.__get_response(self.__current_command_name)
+        if bool(current_response):
+            return current_response.method()
         return True
 
     def __get_response(self, command: str) -> Response:
