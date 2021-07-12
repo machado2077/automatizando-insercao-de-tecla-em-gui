@@ -1,11 +1,11 @@
 import os
 from ..interfaces import IKeyboardEventOutputPort
-from ..keyboard_event_mapper import key_mapper, Response
+from ..keyboard_command_mapper import key_mapper
+from ..keyboard_command_response import Response
 
 class KeyboardEventResponse(IKeyboardEventOutputPort):
     """Classe responsável por receber os comandos do usuário, tratar e implementar as respostas da aplicação e certificar o retorno adequado ao controlador principal do processo."""
     def __init__(self) -> None:
-        #TODO: IMPLEMENTAR O MAPEADOR DESSES COMANDOS - MAPEAR COM OBJETOS
         self.__response_adapter = None
         RESPONSES_MAPPED_ARGS = {
             "init_method":self.__start_key_press,
