@@ -3,8 +3,12 @@
   
 ## Sobre o projeto
 
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/63216146/125514927-3fb7b1d7-c2fb-496d-85e1-1a5d3f760e3f.gif)
+
 
 O projeto consiste em **inserir automaticamente a tecla do teclado do computador**, de modo virtual, através de comando que podem ser configurados pelo usuário. Os comandos atualmente são: inicializar a inserção, pausar a inserção, finalizar o programa.  
+
+Ao inserir o comando 'a', é inserido automaticamente a saída *typing... *, que basicamente ilustra o propósito do projeto.
 
 ## Por que?
   
@@ -28,4 +32,4 @@ Após obter este repositório. No diretório do Projeto:
 
 - verificar o arquivo **command_config.json** e se quiser, alterar os comandos pré determinados;
 
-- execute o programa: **run.py**.
+- execute o programa: **run.py**.linux screen recorder

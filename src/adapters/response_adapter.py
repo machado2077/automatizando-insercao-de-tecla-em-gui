@@ -13,7 +13,7 @@ class PynputKeyboardController:
         return float(f'{real_num:.3}')
 
     def start_key_press(self) -> None:
-        self.__controller.tap('a')
+        self.__controller.type('typing... ')
         time = self.__randomize_sleep_time()
         sleep(time) #O sleep precisa estar depois do .tap(key)
 
