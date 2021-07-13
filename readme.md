@@ -8,7 +8,9 @@
 
 O projeto consiste em **inserir automaticamente a tecla do teclado do computador**, de modo virtual, através de comando que podem ser configurados pelo usuário. Os comandos atualmente são: inicializar a inserção, pausar a inserção, finalizar o programa.  
 
-Ao inserir o comando 'a', é inserido automaticamente a saída *typing... *, que basicamente ilustra o propósito do projeto.
+O gif acima ilustra o processo:
+
+Ao inserir o comando 'a', é inserido automaticamente a saída *typing... *. Em seguida, ao inserir o comando 'p' é pausado o processo de inserção. Depois, é repetido o comando 'a' de inserção e por fim é acionado o comando 'f' que finaliza o programa. Para cada comando, o status na primeira linha do terminal é alterado.
 
 ## Por que?
   
