@@ -10,7 +10,7 @@ O projeto consiste em **inserir automaticamente a tecla do teclado do computador
 
 O gif acima ilustra o processo:
 
-Ao inserir o comando 'a', é inserido automaticamente a saída *typing... *. Em seguida, ao inserir o comando 'p' é pausado o processo de inserção. Depois, é repetido o comando 'a' de inserção e por fim é acionado o comando 'f' que finaliza o programa. Para cada comando, o status na primeira linha do terminal é alterado.
+Ao inserir o comando 'a', é inserido automaticamente a saída **typing... **. Em seguida, ao inserir o comando 'p' é pausado o processo de inserção. Depois, é repetido o comando 'a' de inserção e por fim é acionado o comando 'f' que finaliza o programa. Para cada comando, o status na primeira linha do terminal é alterado.
 
 ## Por que?
   
@@ -34,4 +34,4 @@ Após obter este repositório. No diretório do Projeto:
 
 - verificar o arquivo **command_config.json** e se quiser, alterar os comandos pré determinados;
 
-- execute o programa: **run.py**.linux screen recorder
+- execute o programa: **run.py**
