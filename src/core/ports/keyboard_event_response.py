@@ -44,13 +44,20 @@ class KeyboardEventResponse(IKeyboardEventOutputPort):
         os.system("cls" if os.name == "nt" else "clear")
     
     def _response_mapper(self, init_method, pause_method, finish_method) -> dict:
-        print_msg = lambda msg: lambda: print(f"{msg}\n")
+        commands = f"""PRESS:
+{'-'*30}
+'{key_mapper.initialize}'\t-\tTO START.
+'{key_mapper.pause}'\t-\tTO PAUSE.
+'{key_mapper.finish}'\t-\tTO FINISH.
+{'-'*30}\n
+        """
+        print_msg = lambda msg: lambda: print(f"{msg}\n\n{commands}")
         mapper = {
-            key_mapper.initialize: Response(init_method, print_msg("INICIADO") ),
-            key_mapper.pause: Response(pause_method, print_msg("PAUSADO")),
-            key_mapper.finish: Response(finish_method, print_msg("FINALIZADO"))
+            key_mapper.initialize: Response(init_method, print_msg("STARTED.")),
+            key_mapper.pause: Response(pause_method, print_msg("PAUSED.")),
+            key_mapper.finish: Response(finish_method, print_msg("FINISHED."))
         }
-        print('APERTE PARA COMEÇAR')
+        print(f"HELLO!\n\n{commands}")
         return mapper
 
     @property
